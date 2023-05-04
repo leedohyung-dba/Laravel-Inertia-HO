@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import DangerButton from '@/Components/DangerButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
 const props = defineProps({
@@ -55,6 +56,9 @@ function destroy(id: string | number) {
                                             Slug
                                         </th>
                                         <th scope="col" class="px-6 py-3">
+                                            Tags
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
                                             Edit
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -76,6 +80,12 @@ function destroy(id: string | number) {
                                         <td class="px-6 py-4">
                                             {{ blog.slug }}
                                         </td>
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                            <label class="tag-badge" v-for="tag in blog.tags">
+                                                {{ tag }}
+                                            </label>
+                                        </th>
 
 
                                         <td class="px-6 py-4">
@@ -86,7 +96,7 @@ function destroy(id: string | number) {
                                                 " class="px-4 py-2 text-white bg-blue-600 rounded-lg">Edit</Link>
                                         </td>
                                         <td class="px-6 py-4">
-                                            <DangerButton class="bg-red-700" @click="destroy(blog.id)">
+                                            <DangerButton @click="destroy(blog.id)">
                                                 Delete
                                             </DangerButton>
                                         </td>

@@ -63,7 +63,7 @@ class BlogController extends Controller
             'content' => $request->content
         ]);
 
-        return redirect()->route('blogs.index')->with('message', 'Blog Created Successfully');
+        return to_route('blogs.index')->with('message', 'Blog Created Successfully');
     }
 
     /**
@@ -105,7 +105,7 @@ class BlogController extends Controller
         $blog->content = $request->content;
         $blog->save();
 
-        return redirect()->route('blogs.index')->with('message', 'Blog Updated Successfully');
+        return to_route('blogs.index')->with('message', 'Blog Updated Successfully');
     }
 
     /**
@@ -115,6 +115,6 @@ class BlogController extends Controller
     {
         $blog->delete();
 
-        return redirect()->route('blogs.index')->with('message', 'Blog Delete Successfully');
+        return to_route('blogs.index')->with('message', 'Blog Delete Successfully');
     }
 }

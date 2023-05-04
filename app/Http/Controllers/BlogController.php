@@ -4,15 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class BlogController extends Controller
 {
+    const TAG_OPTIONS = [
+        'あああああ', 
+        'いいいいい', 
+        'ううううう', 
+        'えええええ', 
+        'おおおおお', 
+    ];
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $blogs = Blog::all();
+
+        return Inertia::render(
+            'Blogs/Index',
+            [
+                'blogs' => $blogs
+            ]
+        );
     }
 
     /**
@@ -20,7 +36,13 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render(
+            'Blogs/Create',
+            [
+                'tags_options' => self::TAG_OPTIONS
+            ]
+        );
+
     }
 
     /**

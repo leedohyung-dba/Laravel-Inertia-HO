@@ -9,11 +9,11 @@ use Inertia\Inertia;
 class BlogController extends Controller
 {
     const TAG_OPTIONS = [
-        'あああああ', 
-        'いいいいい', 
-        'ううううう', 
-        'えええええ', 
-        'おおおおお', 
+        'あああああ',
+        'いいいいい',
+        'ううううう',
+        'えええええ',
+        'おおおおお',
     ];
 
     /**
@@ -79,7 +79,13 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        //
+        return Inertia::render(
+            'Blogs/Edit',
+            [
+                'blog' => $blog,
+                'tags_options' => self::TAG_OPTIONS
+            ]
+        );
     }
 
     /**
@@ -87,7 +93,19 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'content' => 'required',
+        ]);
+
+        $blog->title = $request->title;
+        $blog->slug = \Str::slug($request->slug);
+        $blog->tags = $request->tags;
+        $blog->content = $request->content;
+        $blog->save();
+
+        return redirect()->route('blogs.index')->with('message', 'Blog Updated Successfully');
     }
 
     /**
@@ -95,6 +113,8 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        $blog->delete();
+
+        return redirect()->route('blogs.index')->with('message', 'Blog Delete Successfully');
     }
 }
